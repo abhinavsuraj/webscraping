@@ -5,7 +5,7 @@ import urllib.request
 import requests
 import unicodedata
 from unicodedata import category
-#url = 'https://www.usnews.com/best-graduate-schools/top-business-schools/mba-rankings'
+url = 'https://www.usnews.com/best-graduate-schools/top-business-schools/mba-rankings'
 #url = 'https://www.usnews.com/best-graduate-schools/top-business-schools/information-systems-rankings'
 #url = 'https://www.usnews.com/best-graduate-schools/top-business-schools/mba-rankings'
 #url = 'https://www.usnews.com/best-graduate-schools/top-business-schools/mba-rankings/page+2'
