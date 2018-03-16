@@ -1,0 +1,41 @@
+import requests
+from urllib.request import urlopen as uReq
+from bs4 import BeautifulSoup as soup
+import re
+import os
+import urllib.request
+#this code has to be used in python3
+user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+#Change this url
+url = "http://pixhost.org/show/166/49273754_picturepub_diana-2.jpg"
+
+headers={'User-Agent':user_agent,} 
+request=urllib.request.Request(url,None,headers) #The assembled request
+response = urllib.request.urlopen(request)
+data = response.read() # The data u need
+page_soup = soup(data,"lxml")
+links = page_soup.findAll("div",{"id":"content-container"})
+
+dir = os.path.dirname(os.path.abspath('__file__'))
+#changefiledirectory
+TestallPics = dir +"\\Imagefolder"
+
+if not os.path.exists(TestallPics):
+        os.makedirs(TestallPics)
+        
+links=str(links)
+link = re.findall('https://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+jpg', links)
+#Change the file name
+filename='image_'
+#change the range
+for x in range(0,5):
+    url=link[x]
+    imagedata=urllib.request.Request(url,None,headers)
+    #response = urllib.request.urlopen(request)
+    path = os.path.join(TestallPics,filename+str(x)+".jpg")
+    #imagefile= open(filename +str(x)+".jpg",'wb')
+    with open (path,"wb") as imagefile:
+        imagefile.write(urllib.request.urlopen(imagedata).read())
+    #imagefile.close()
+    print ("Completed download of image:" + filename+str(x))
+print ("Completed download of all images")
